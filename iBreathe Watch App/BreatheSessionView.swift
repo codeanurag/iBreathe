@@ -19,28 +19,42 @@ struct BreatheSessionView: View {
     let exhaleDuration: TimeInterval = 4
 
     var body: some View {
-        VStack(spacing: 10) {
-            Text("🧘‍♂️ iBreathe")
-                .font(.headline)
+        GeometryReader { geometry in
+            VStack(spacing: 8) {
+                Text("🧘‍♂️ Breathe")
+                    .font(.headline)
+                    .padding(.top)
 
-            ZStack {
-                Circle()
-                    .fill(isInhaling ? Color.green.opacity(0.8) : Color.blue.opacity(0.6))
-                    .frame(width: 50, height: 50)
-                    .scaleEffect(scale)
-                    .animation(.easeInOut(duration: isInhaling ? inhaleDuration : exhaleDuration), value: scale)
+                Spacer()
+
+                ZStack {
+                    Circle()
+                        .fill(isInhaling ? Color.green.opacity(0.6) : Color.blue.opacity(0.6))
+                        .frame(width: geometry.size.width * 0.5)
+                        .scaleEffect(scale)
+                        .animation(.easeInOut(duration: isInhaling ? inhaleDuration : exhaleDuration), value: scale)
+                }
+                .frame(maxWidth: .infinity, maxHeight: geometry.size.height * 0.5)
+
+                Spacer()
+
+                Text(isInhaling ? "Inhale..." : "Exhale...")
+                    .font(.subheadline)
+                    .foregroundColor(.secondary)
+
+                Text("⏱ \(secondsRemaining) sec left")
+                    .font(.footnote)
+                    .foregroundColor(.gray)
+                    .padding(.bottom, 4)
             }
-            .padding(4)
-
-            Text(isInhaling ? "Inhale..." : "Exhale...")
-                .font(.subheadline)
-                .foregroundColor(.secondary)
-
-            Text("⏱ \(secondsRemaining) sec left")
-                .font(.footnote)
-                .foregroundColor(.gray)
+            .frame(width: geometry.size.width, height: geometry.size.height)
         }
-        .onAppear(perform: startSession)
+        .onAppear {
+            scale = 1.0
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                startSession()
+            }
+        }
         .onDisappear(perform: stopSession)
     }
 
@@ -50,7 +64,6 @@ struct BreatheSessionView: View {
             runBreathingCycle()
         }
 
-        // Countdown timer
         Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { countdownTimer in
             secondsRemaining -= 1
             if secondsRemaining <= 0 {
