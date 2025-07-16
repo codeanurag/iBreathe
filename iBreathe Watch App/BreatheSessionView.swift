@@ -13,10 +13,17 @@ struct BreatheSessionView: View {
     @State private var scale: CGFloat = 1.0
     @State private var isInhaling = true
     @State private var timer: Timer?
-    @State private var secondsRemaining = 60 // 1-minute session
+    @State private var secondsRemaining: Int
+
+    init(durationInMinutes: Int) {
+        self.durationInMinutes = durationInMinutes
+        self._secondsRemaining = State(initialValue: durationInMinutes * 60)
+    }
+
 
     let inhaleDuration: TimeInterval = 4
     let exhaleDuration: TimeInterval = 4
+    let durationInMinutes: Int
 
     var body: some View {
         GeometryReader { geometry in
