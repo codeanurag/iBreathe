@@ -9,11 +9,12 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        VStack(spacing: 20) {
+            Text("⌚️ iBreathe")
+                .font(.headline)
+            Button("Send to iPhone") {
+                WatchSessionManager.shared.send(message: ["fromWatch": "Hello iPhone 👋"])
+            }
         }
         .padding()
     }
