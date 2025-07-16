@@ -79,13 +79,6 @@
 			);
 			target = 83D5C1BC2E268187004CFA22 /* iBreathe */;
 		};
-		83D5C21F2E26859E004CFA22 /* Exceptions for "iBreathe Watch App" folder in "iBreathe Watch App" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				"iBreathe-Watch-App-Info.plist",
-			);
-			target = 83D5C1DF2E268189004CFA22 /* iBreathe Watch App */;
-		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -109,9 +102,6 @@
 		};
 		83D5C1E42E268189004CFA22 /* iBreathe Watch App */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				83D5C21F2E26859E004CFA22 /* Exceptions for "iBreathe Watch App" folder in "iBreathe Watch App" target */,
-			);
 			path = "iBreathe Watch App";
 			sourceTree = "<group>";
 		};
@@ -644,6 +634,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "iBreathe-Watch-App-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = iBreathe;
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "Requesting permission to read heart rate and HRV (Heart Rate Variability)";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = code.anurag.ai.iBreathe;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -675,6 +666,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "iBreathe-Watch-App-Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = iBreathe;
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "Requesting permission to read heart rate and HRV (Heart Rate Variability)";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = code.anurag.ai.iBreathe;
 				LD_RUNPATH_SEARCH_PATHS = (

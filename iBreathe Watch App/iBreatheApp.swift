@@ -9,9 +9,14 @@ import SwiftUI
 
 @main
 struct iBreathe_Watch_AppApp: App {
+    @StateObject private var healthManager = HealthManager()
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .onAppear {
+                    healthManager.requestAuthorization()
+                }
         }
     }
 }
