@@ -9,9 +9,14 @@ import SwiftUI
 
 @main
 struct iBreatheApp: App {
+    @StateObject private var sessionManager = iPhoneSessionManager.shared
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .onAppear {
+                    _ = sessionManager
+                }
         }
     }
 }
