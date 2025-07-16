@@ -18,14 +18,12 @@
 
 ## 📋 Table of Contents
 
-- [Demo](#demo)  
-- [Features](#features)  
-- [Tech Highlights](#tech-highlights)  
-- [Screenshots](#screenshots)  
-- [Setup & Run](#setup--run)  
-- [Roadmap](#roadmap)  
-- [Credits & License](#credits--license)
-
+- [Features](#-features)
+- [Tech Highlights](#-tech-highlights)
+- [Screenshots](#-screenshots)
+- [Setup & Run](#-setup--run)
+- [Roadmap](#-roadmap)
+- [Credits & License](#-credits--license)
 ---
 
 ## 🎯 Features
@@ -51,12 +49,14 @@
 
 ### ⌚ Watch App
 
-![Home Screen](docs/screen1.png) ![History](docs/screen2.png)  
-![Inhale Phase](docs/screen3.png) ![Exhale Phase](docs/screen4.png)
+- ![Home Screen](docs/screen1.png)
+- ![History](docs/screen2.png)
+- ![Inhale Phase](docs/screen3.png)
+- ![Exhale Phase](docs/screen4.png)
 
 ### 📱 iPhone App
 
-![iPhone History](docs/screen5.png)
+- ![iPhone History](docs/screen5.png)
 
 ---
 
@@ -106,9 +106,18 @@
 
 ---
 
+## 📞 Support
+
+Have questions or need help?
+
+- 🐛 **Bug Reports**: [Open an issue](https://github.com/codeanurag/iBreathe/issues)
+- 💡 **Feature Requests**: [Start a discussion](https://github.com/codeanurag/iBreathe/discussions)
+- 📧 **Contact**: [codeanuragpandit@gmail.com](mailto:codeanuragpandit@gmail.com)
+
+---  
+
 ## ❤️ Credits & License
 
 Built with 💡 by [@codeanurag](https://github.com/codeanurag).  
-Inspired by trending SwiftUI/wacthOS open-source projects.
 
 Licensed under the MIT License — see [LICENSE](LICENSE) for details.
