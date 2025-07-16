@@ -31,11 +31,21 @@ class WatchSessionManager: NSObject, WCSessionDelegate, ObservableObject {
     // MARK: - WCSessionDelegate
 
     func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
-        print("🔁 Watch session activated: \(activationState.rawValue)")
+        switch activationState {
+        case .notActivated:
+            print("❌ Session not activated")
+        case .inactive:
+            print("🔄 Session inactive")
+        case .activated:
+            print("✅ Session activated and ready")
+        @unknown default:
+            print("📩 Received unknown activation state \(activationState.rawValue)")
+        }
         if let error = error {
             print("⚠️ Activation error: \(error.localizedDescription)")
         }
     }
+
 
     func session(_ session: WCSession, didReceiveMessage message: [String : Any]) {
         DispatchQueue.main.async {
