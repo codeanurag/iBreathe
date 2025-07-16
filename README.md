@@ -23,6 +23,7 @@
 - [Screenshots](#-screenshots)
 - [Setup & Run](#-setup--run)
 - [Roadmap](#-roadmap)
+- [Support](#-support)
 - [Credits & License](#-credits--license)
 ---
 
