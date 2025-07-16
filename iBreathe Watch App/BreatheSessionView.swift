@@ -10,103 +10,123 @@ import SwiftUI
 import WatchKit
 
 struct BreatheSessionView: View {
+    let durationInMinutes: Int
+    
     @State private var scale: CGFloat = 1.0
     @State private var isInhaling = true
-    @State private var timer: Timer?
     @State private var secondsRemaining: Int
-
+    @State private var isPaused = false
+    
+    @State private var countdownTimer: Timer?
+    @State private var breathingTimer: Timer?
+    
+    let inhaleDuration: TimeInterval = 4
+    let exhaleDuration: TimeInterval = 4
+    
     init(durationInMinutes: Int) {
         self.durationInMinutes = durationInMinutes
         self._secondsRemaining = State(initialValue: durationInMinutes * 60)
     }
-
-
-    let inhaleDuration: TimeInterval = 4
-    let exhaleDuration: TimeInterval = 4
-    let durationInMinutes: Int
-
+    
     var body: some View {
-        GeometryReader { geometry in
-            VStack(spacing: 8) {
-                Text("🧘‍♂️ Breathe")
-                    .font(.headline)
-                    .padding(.top)
-
+        Text("🧘‍♂️ Breathe")
+            .font(.headline)
+            .padding(.top)
+        ScrollView {
+            VStack(spacing: 4) {
                 Spacer()
-
+                
                 ZStack {
                     Circle()
                         .fill(isInhaling ? Color.green.opacity(0.6) : Color.blue.opacity(0.6))
-                        .frame(width: geometry.size.width * 0.5)
+                        .frame(width: 50, height: 50)
                         .scaleEffect(scale)
                         .animation(.easeInOut(duration: isInhaling ? inhaleDuration : exhaleDuration), value: scale)
                 }
-                .frame(maxWidth: .infinity, maxHeight: geometry.size.height * 0.5)
-
                 Spacer()
-
                 Text(isInhaling ? "Inhale..." : "Exhale...")
                     .font(.subheadline)
                     .foregroundColor(.secondary)
-
+                
                 Text("⏱ \(secondsRemaining) sec left")
                     .font(.footnote)
                     .foregroundColor(.gray)
-                    .padding(.bottom, 4)
+                
+                Button(isPaused ? "Resume" : "Pause") {
+                    isPaused.toggle()
+                    triggerHaptic(for: .click)
+                }
+                .buttonStyle(.bordered)
+                .padding(.bottom)
             }
-            .frame(width: geometry.size.width, height: geometry.size.height)
+            .frame(maxWidth: .infinity)
+            .padding()
         }
+        
         .onAppear {
             scale = 1.0
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 startSession()
             }
         }
-        .onDisappear(perform: stopSession)
+        .onDisappear {
+            stopSession()
+        }
     }
-
+    
     func startSession() {
         runBreathingCycle()
-        timer = Timer.scheduledTimer(withTimeInterval: inhaleDuration + exhaleDuration, repeats: true) { _ in
-            runBreathingCycle()
+        breathingTimer = Timer.scheduledTimer(withTimeInterval: inhaleDuration + exhaleDuration, repeats: true) { _ in
+            if !isPaused {
+                runBreathingCycle()
+            }
         }
-
-        Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { countdownTimer in
-            secondsRemaining -= 1
-            if secondsRemaining <= 0 {
-                countdownTimer.invalidate()
-                stopSession()
+        
+        countdownTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
+            if !isPaused {
+                secondsRemaining -= 1
+                if secondsRemaining <= 0 {
+                    timer.invalidate()
+                    breathingTimer?.invalidate()
+                    triggerHaptic(for: .stop)
+                }
             }
         }
     }
-
+    
+    func stopSession() {
+        countdownTimer?.invalidate()
+        breathingTimer?.invalidate()
+        countdownTimer = nil
+        breathingTimer = nil
+    }
+    
     func runBreathingCycle() {
         isInhaling = true
         scale = 1.4
         triggerHaptic(for: .start)
-
+        
         DispatchQueue.main.asyncAfter(deadline: .now() + inhaleDuration) {
+            guard !isPaused else { return }
             self.isInhaling = false
             self.scale = 1.0
             triggerHaptic(for: .stop)
         }
     }
-
-    func stopSession() {
-        timer?.invalidate()
-        timer = nil
-    }
-
+    
     func triggerHaptic(for phase: Phase) {
         switch phase {
         case .start:
             WKInterfaceDevice.current().play(.start)
         case .stop:
             WKInterfaceDevice.current().play(.stop)
+        case .click:
+            WKInterfaceDevice.current().play(.click)
         }
     }
-
+    
     enum Phase {
-        case start, stop
+        case start, stop, click
     }
 }
+
