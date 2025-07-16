@@ -40,16 +40,24 @@ class iPhoneSessionManager: NSObject, WCSessionDelegate, ObservableObject {
     }
 
     func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
-        print("📱 iPhone session activated with state: \(activationState.rawValue)")
+        switch activationState {
+        case .notActivated:
+            print("❌ 📱 iPhone Session not activated")
+        case .inactive:
+            print("🔄 📱 iPhone Session inactive")
+        case .activated:
+            print("✅ 📱 iPhone Session activated and ready")
+        @unknown default:
+            print("📩 Received unknown 📱 iPhone activation state \(activationState.rawValue)")
+        }
         if let error = error {
-            print("⚠️ iPhone session activation error: \(error.localizedDescription)")
+            print("⚠️ 📱 iPhone session Activation error: \(error.localizedDescription)")
         }
     }
 
     func session(_ session: WCSession, didReceiveMessage message: [String : Any]) {
         DispatchQueue.main.async {
             print("📩 Received message from Watch: \(message)")
-            // You can handle incoming watch data here
         }
     }
 
