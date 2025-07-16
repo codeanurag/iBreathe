@@ -9,14 +9,17 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        VStack(spacing: 20) {
-            Text("📱 iBreathe")
-                .font(.title)
-            Button("Send to Watch") {
-                iPhoneSessionManager.shared.send(message: ["fromiPhone": "Hello Watch ⌚️"])
+        NavigationStack {
+            VStack(spacing: 20) {
+                Text("📲 iBreathe iPhone")
+                    .font(.title)
+                
+                NavigationLink("View Synced Logs") {
+                    SessionHistoryView()
+                }
+                .buttonStyle(.borderedProminent)
             }
         }
-        .padding()
     }
 }
 

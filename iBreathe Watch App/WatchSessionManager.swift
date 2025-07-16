@@ -64,4 +64,23 @@ class WatchSessionManager: NSObject, WCSessionDelegate, ObservableObject {
             print("❌ Send error: \(error.localizedDescription)")
         }
     }
+    
+    func sendLogsToPhone() {
+        guard WCSession.default.isReachable else {
+            print("❌ iPhone not reachable")
+            return
+        }
+
+        let logs = SessionLogger.loadLogs()
+
+        guard let data = try? JSONEncoder().encode(logs) else {
+            print("❌ Failed to encode logs")
+            return
+        }
+
+        WCSession.default.sendMessage(["logs": data], replyHandler: nil) { error in
+            print("❌ Error sending logs: \(error.localizedDescription)")
+        }
+    }
+
 }

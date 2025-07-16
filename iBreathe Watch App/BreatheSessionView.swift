@@ -90,6 +90,7 @@ struct BreatheSessionView: View {
                     breathingTimer?.invalidate()
                     triggerHaptic(for: .stop)
                     SessionLogger.saveLog(duration: durationInMinutes)
+                    WatchSessionManager.shared.sendLogsToPhone()
                 }
             }
         }

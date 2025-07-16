@@ -56,10 +56,32 @@ class iPhoneSessionManager: NSObject, WCSessionDelegate, ObservableObject {
     }
 
     func session(_ session: WCSession, didReceiveMessage message: [String : Any]) {
-        DispatchQueue.main.async {
-            print("📩 Received message from Watch: \(message)")
+        if let data = message["logs"] as? Data {
+            do {
+                let logs = try JSONDecoder().decode([SessionLog].self, from: data)
+                saveLogsToPhone(logs)
+            } catch {
+                print("❌ Failed to decode logs from watch: \(error)")
+            }
         }
     }
+    private func saveLogsToPhone(_ logs: [SessionLog]) {
+        let url = getLogFileURL()
+        do {
+            let data = try JSONEncoder().encode(logs)
+            try data.write(to: url)
+            print("✅ Logs saved to iPhone file")
+        } catch {
+            print("❌ Failed to save logs to file: \(error)")
+        }
+    }
+    private func getLogFileURL() -> URL {
+        FileManager.default
+            .urls(for: .documentDirectory, in: .userDomainMask)
+            .first!
+            .appendingPathComponent("received_logs.json")
+    }
+
 
     // Optional: Send message to Watch
     func send(message: [String: Any]) {

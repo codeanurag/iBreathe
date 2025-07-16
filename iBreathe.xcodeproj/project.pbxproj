@@ -72,6 +72,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		8358CF002E279FF6001EC39E /* Exceptions for "iBreathe Watch App" folder in "iBreathe" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				SessionLog.swift,
+			);
+			target = 83D5C1BC2E268187004CFA22 /* iBreathe */;
+		};
 		83D5C2182E2683B8004CFA22 /* Exceptions for "iBreathe" folder in "iBreathe" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
@@ -102,6 +109,9 @@
 		};
 		83D5C1E42E268189004CFA22 /* iBreathe Watch App */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				8358CF002E279FF6001EC39E /* Exceptions for "iBreathe Watch App" folder in "iBreathe" target */,
+			);
 			path = "iBreathe Watch App";
 			sourceTree = "<group>";
 		};
