@@ -89,6 +89,7 @@ struct BreatheSessionView: View {
                     timer.invalidate()
                     breathingTimer?.invalidate()
                     triggerHaptic(for: .stop)
+                    SessionLogger.saveLog(duration: durationInMinutes)
                 }
             }
         }
