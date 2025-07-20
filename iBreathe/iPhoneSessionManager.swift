@@ -83,7 +83,6 @@ class iPhoneSessionManager: NSObject, WCSessionDelegate, ObservableObject {
     }
 
 
-    // Optional: Send message to Watch
     func send(message: [String: Any]) {
         guard WCSession.default.isReachable else {
             print("📵 Watch not reachable")
