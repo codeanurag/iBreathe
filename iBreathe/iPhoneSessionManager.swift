@@ -65,23 +65,6 @@ class iPhoneSessionManager: NSObject, WCSessionDelegate, ObservableObject {
             }
         }
     }
-    private func saveLogsToPhone(_ logs: [SessionLog]) {
-        let url = getLogFileURL()
-        do {
-            let data = try JSONEncoder().encode(logs)
-            try data.write(to: url)
-            print("✅ Logs saved to iPhone file")
-        } catch {
-            print("❌ Failed to save logs to file: \(error)")
-        }
-    }
-    private func getLogFileURL() -> URL {
-        FileManager.default
-            .urls(for: .documentDirectory, in: .userDomainMask)
-            .first!
-            .appendingPathComponent("received_logs.json")
-    }
-
 
     func send(message: [String: Any]) {
         guard WCSession.default.isReachable else {
@@ -92,5 +75,24 @@ class iPhoneSessionManager: NSObject, WCSessionDelegate, ObservableObject {
         WCSession.default.sendMessage(message, replyHandler: nil, errorHandler: { error in
             print("❌ Error sending message to Watch: \(error.localizedDescription)")
         })
+    }
+}
+private
+extension iPhoneSessionManager {
+    func saveLogsToPhone(_ logs: [SessionLog]) {
+        let url = getLogFileURL()
+        do {
+            let data = try JSONEncoder().encode(logs)
+            try data.write(to: url)
+            print("✅ Logs saved to iPhone file")
+        } catch {
+            print("❌ Failed to save logs to file: \(error)")
+        }
+    }
+    func getLogFileURL() -> URL {
+        FileManager.default
+            .urls(for: .documentDirectory, in: .userDomainMask)
+            .first!
+            .appendingPathComponent("received_logs.json")
     }
 }
