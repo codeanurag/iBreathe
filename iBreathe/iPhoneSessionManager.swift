@@ -8,6 +8,7 @@
 
 import Foundation
 import WatchConnectivity
+import HealthKit
 
 class iPhoneSessionManager: NSObject, WCSessionDelegate, ObservableObject {
     static let shared = iPhoneSessionManager()
@@ -85,6 +86,12 @@ extension iPhoneSessionManager {
             let data = try JSONEncoder().encode(logs)
             try data.write(to: url)
             print("✅ Logs saved to iPhone file")
+            // 🧠 Save to HealthKit
+            logs.forEach { log in
+                let start = log.timestamp
+                let end = Calendar.current.date(byAdding: .minute, value: log.duration, to: start)!
+                HealthKitManager.shared.saveMindfulnessSession(start: start, end: end)
+            }
         } catch {
             print("❌ Failed to save logs to file: \(error)")
         }
