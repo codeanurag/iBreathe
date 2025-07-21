@@ -101,9 +101,7 @@
 |--------------------------|------------|
 | HealthKit integration    | ✅ Done |
 | Custom inhale/exhale durations | ✅ Done |
-| iCloud sync + Charts     | 🚧 In progress |
-| Home Screen complication | 🛠 Planned |
-| Widgets & notifications  | ❌ Not started |
+
 
 ---
 
