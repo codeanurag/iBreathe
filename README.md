@@ -99,9 +99,9 @@
 
 | Planned Feature          | Status     |
 |--------------------------|------------|
-| HealthKit integration    | 🚧 In progress |
+| HealthKit integration    | ✅ Done |
 | Custom inhale/exhale durations | ✅ Done |
-| iCloud sync + Charts     | 🛠 Planned |
+| iCloud sync + Charts     | 🚧 In progress |
 | Home Screen complication | 🛠 Planned |
 | Widgets & notifications  | ❌ Not started |
 
