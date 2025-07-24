@@ -24,12 +24,17 @@ final class HealthKitManager {
         let typesToShare: Set = [mindfulnessType]
         let typesToRead: Set = [mindfulnessType]
 
-        healthStore.requestAuthorization(toShare: typesToShare, read: typesToRead, completion: completion)
+        healthStore.requestAuthorization(toShare: typesToShare,
+                                         read: typesToRead,
+                                         completion: completion)
     }
 
     func saveMindfulnessSession(start: Date, end: Date) {
         let mindfulnessType = HKCategoryType.categoryType(forIdentifier: .mindfulSession)!
-        let session = HKCategorySample(type: mindfulnessType, value: 0, start: start, end: end)
+        let session = HKCategorySample(type: mindfulnessType,
+                                       value: 0,
+                                       start: start,
+                                       end: end)
         
         healthStore.save(session) { success, error in
             if !success {
