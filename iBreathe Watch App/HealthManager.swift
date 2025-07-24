@@ -23,7 +23,8 @@ class HealthManager: ObservableObject {
             HKObjectType.quantityType(forIdentifier: .heartRateVariabilitySDNN)!
         ]
         
-        healthStore.requestAuthorization(toShare: [], read: readTypes) { success, error in
+        healthStore.requestAuthorization(toShare: [],
+                                         read: readTypes) { success, error in
             if success {
                 print("✅ HealthKit authorization granted.")
             } else {
