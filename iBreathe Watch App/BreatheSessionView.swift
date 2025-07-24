@@ -76,7 +76,10 @@ struct BreatheSessionView: View {
     
     func startSession() {
         runBreathingCycle()
-        breathingTimer = Timer.scheduledTimer(withTimeInterval: inhaleDuration + exhaleDuration, repeats: true) { _ in
+        breathingTimer = Timer.scheduledTimer(
+            withTimeInterval: inhaleDuration + exhaleDuration,
+            repeats: true
+        ) { _ in
             if !isPaused {
                 runBreathingCycle()
             }
